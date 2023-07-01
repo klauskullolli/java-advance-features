@@ -4,15 +4,42 @@ import java.util.*;
 
 public class ListExample {
 
+
+    private static class Pairs {
+        int key;
+        String value;
+
+        public Pairs() {
+        }
+
+        public Pairs(int key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "{key: " + key + ", value: " + value + "}";
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            Pairs p = (Pairs) obj;
+//            return key==((Pairs) obj).key &&  value.equals(((Pairs) obj).value);
+            return key == p.key && value.equals(p.value);
+
+        }
+    }
+
     public static void main(String[] args) {
         ArrayList<Integer> arr = new ArrayList<>();
         arr.add(2);
         arr.add(4);
-        arr.add(0,6);
+        arr.add(0, 6);
 
         System.out.println(arr);
 
-        for (Integer e : arr){
+        for (Integer e : arr) {
             System.out.print(e + " ");
         }
         System.out.println();
@@ -94,21 +121,88 @@ public class ListExample {
         list1.add(1, 8); //{7,8,2,5}
         list1.add(8);  // {7,8,2,5,8}
 
-        System.out.println("list1: "+ list1);
+        System.out.println("list1: " + list1);
 
-        boolean el  =  list1.offerFirst(2);
+        boolean el = list1.offerFirst(2);
 
         System.out.println(el);
-        System.out.println("list1: "+ list1);
+        System.out.println("list1: " + list1);
 
-        Integer element1 = list1.element() ;
+        Integer element1 = list1.element();
         System.out.println("element1: " + element1);
 
+//        stack analogy is: FILO (first in last out)
+        System.out.println("-----------------------------STACK-----------------------------------");
+
+        Stack<Integer> stack1 = new Stack<>();
+        stack1.push(2);
+        stack1.push(3);
+        stack1.push(7);
+        System.out.println("stack1: " + stack1);
+        int a = stack1.pop();
+        System.out.println("a: " + a);
+        System.out.println("stack1: " + stack1);
+        System.out.println("Peeking: " + stack1.peek());
+        System.out.println("stack1: " + stack1);
+        System.out.println("index 0: " + stack1.get(0));
+
+        System.out.println("-----------------------------QUEUE-----------------------------------");
 
 
+        Pairs p1 = new Pairs();
+        p1.key = 2;
+        p1.value = "Hello";
+        Pairs p2 = new Pairs(3, "Word");
+
+//        PriorityQueue<Pairs> pairsQueue1 = new PriorityQueue<>(List.of(new Pairs(5,"something"),new Pairs(6, "name")));
+        PriorityQueue<Pairs> pairsQueue = new PriorityQueue<>(new Comparator<Pairs>() {
+            @Override
+            public int compare(Pairs o1, Pairs o2) {
+                return o1.value.compareTo(o2.value);
+            }
+        });    // vendoset rregulli per prioritetin (sorting) using functional interface Comparor
+        pairsQueue.addAll(List.of(p1, p2));  // add list of elements   ,  [(2,"Hello"), (3, "Word")]
+
+        System.out.println("pairsQueue: " + pairsQueue);
+
+        pairsQueue.add(new Pairs(12, "something"));    // [(2,"Hello"), (3, "Word"), (12, "something")]
+
+        System.out.println("pairsQueue: " + pairsQueue);
+
+        System.out.println("p1: " + pairsQueue.remove(p1));  // [(3, "Wrd"), (12, "something")]
+
+        System.out.println("pairsQueue: " + pairsQueue);
+        System.out.println("poll: " + pairsQueue.poll()); //[(12, "something")]
 
 
+        pairsQueue.offer(new Pairs(8, "Klaus"));  //[ (8,klaus),(12, "something")]
 
+        System.out.println("pairsQueue: " + pairsQueue);
+//  Error priority not defined
+//        PriorityQueue<Pairs> pairsQueue1 = new PriorityQueue<>(List.of(new Pairs(5,"something"),new Pairs(6, "name")));
+
+        System.out.println(p1.equals(p2));
+        System.out.println(p1.equals(new Pairs(2, "Hello")));
+
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(List.of(3, 5, 6));
+        arrayDeque.add(12);
+
+        System.out.println("arrayDeque: " + arrayDeque);
+        System.out.println("Peeking: " + arrayDeque.peek());
+        System.out.println("Poll: " + arrayDeque.poll());
+
+        System.out.println("arrayDeque: " + arrayDeque);
+
+        System.out.println("Pop: " + arrayDeque.pop());
+
+        System.out.println("Poll last : " + arrayDeque.pollLast());
+
+        arrayDeque.addLast(15);
+
+        System.out.println("arrayDeque: " + arrayDeque);
+
+
+//        System.out.println();
 
     }
 }
