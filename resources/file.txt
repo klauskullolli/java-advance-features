@@ -1,0 +1,5 @@
+name klaus
+surname kullolli
+address kombinat
+number 0691111111
+age 22

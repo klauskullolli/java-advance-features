@@ -64,7 +64,5 @@ public class MapsExample {
         System.out.println("map2: " + map2);
 
 
-
-
     }
 }
