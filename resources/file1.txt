@@ -1,6 +1,2 @@
-name klaus
-surname kullolli
-address kombinat
-number 0691111111
-age 22
-email test@gmail.com
+Hello where are you?
+Hello, Hello...
