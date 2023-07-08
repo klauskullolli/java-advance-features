@@ -2,7 +2,9 @@ package com.sda.java.advance.threads;
 
 public class SumCalculator extends Thread{
 
-    private static Object lock =  new Object();
+//    Static lock
+private static Object lock =  new Object();
+    //    static sum that is accessible by any thread
     private static Integer sum;
 
     private  Integer start;

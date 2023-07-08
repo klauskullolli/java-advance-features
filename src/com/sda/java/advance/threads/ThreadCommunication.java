@@ -1,15 +1,58 @@
 package com.sda.java.advance.threads;
 
 //Communication
-public class ThreadCommunication{
+public class ThreadCommunication {
 
     private static Object lock = new Object();
+
+    private static boolean sharedBoolean = true;
+
+    private static void threadCommunicationExample() {
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (lock) {
+                    while (sharedBoolean) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    System.out.println(Thread.currentThread() + " finished");
+                }
+            }
+        });
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (lock) {
+                    try {
+                        System.out.println(Thread.currentThread() + " sleeping " + 2000 + " millisec");
+                        Thread.sleep(2000);
+                        sharedBoolean = false;
+                        lock.notifyAll();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                System.out.println(Thread.currentThread() + " finished");
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+
+    }
+
     public static void main(String[] args) {
 
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (lock){
+                synchronized (lock) {
                     System.out.println("Thread 1 has acquired the lock");
 
                     try {
@@ -55,7 +98,7 @@ public class ThreadCommunication{
         t1.start();
         t2.start();
 
-
+//        threadCommunicationExample();
 
     }
 }

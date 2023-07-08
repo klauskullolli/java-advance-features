@@ -25,12 +25,13 @@ public class NioMain {
         }
 
 
+
 //        This Files is also part of nio package
 //        Very useful for reading and writing file operation
 //        It supports static methods that modify, delete, add file and read and write files
         Files.write(path, "Hello where are you?\n".getBytes(StandardCharsets.UTF_8), StandardOpenOption.TRUNCATE_EXISTING);
         Files.write(path, "Hello, Hello...".getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-
+        Files.write(path, "Hello, Hello Hello Hello...".getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
         for(String line: Files.readAllLines(path)){
             System.out.println(line);
         }
@@ -43,21 +44,25 @@ public class NioMain {
 
         String filePath = "resources/file2.txt";
 
-        Path path =  Paths.get(filePath);
-        if (!path.toFile().exists()){
+        Path path = Paths.get(filePath);
+        if (!path.toFile().exists()) {
             Files.createFile(path);
         }
-        ByteBuffer buffer =  ByteBuffer.allocate(1024);
 
-        FileChannel channel =  FileChannel.open(path, StandardOpenOption.READ);
+//        Use buffer to read from a channel
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+//     File channel is used for reading, writing, manipulation files
+//      Object initialization is made like below using path and  StandardOpenOption
+        FileChannel channel = FileChannel.open(path, StandardOpenOption.READ);
 
         int bites = channel.read(buffer);
-        String fileStr  ="" ;
-        while (bites!=-1){
+        String fileStr = "";
+        while (bites != -1) {
 //            Flip function to prepare buffer for reading
             buffer.flip();
-            while (buffer.hasRemaining()){
-                fileStr+=(char)buffer.get();
+            while (buffer.hasRemaining()) {
+                fileStr += (char) buffer.get();
             }
 //           Cleaning buffer to fill again
             buffer.clear();
@@ -66,14 +71,16 @@ public class NioMain {
 
         System.out.println(fileStr);
 
-        channel =  FileChannel.open(path, StandardOpenOption.APPEND);
-        byte bytes[]  = fileStr.getBytes();
+        channel = FileChannel.open(path, StandardOpenOption.APPEND);
+        byte bytes[] = fileStr.getBytes();
 
-        buffer =  ByteBuffer.allocate(bytes.length);
+        buffer = ByteBuffer.allocate(bytes.length);
         buffer.put(bytes);
         buffer.flip();
         channel.write(buffer);
 
+
+//        workWithPathAndFiles();
 
     }
 }
