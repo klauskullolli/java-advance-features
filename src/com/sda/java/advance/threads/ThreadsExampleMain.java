@@ -97,6 +97,13 @@ public class ThreadsExampleMain {
 //        threadExample3();
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
+//        executor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        });
+
 
         int a = 23;
 
@@ -127,7 +134,7 @@ public class ThreadsExampleMain {
             long endTime = System.currentTimeMillis();
             System.out.println("Elapsed time: " + (endTime - startTime));
             executor.shutdown();
-
+            
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
