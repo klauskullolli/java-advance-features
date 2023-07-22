@@ -12,25 +12,48 @@ public class Exercise14 {
 
         random.setSeed(System.currentTimeMillis());
 
-        for (int i = 0 ; i<nr ; i++){
+        for (int i = 0; i < nr; i++) {
             ls.add(random.nextInt(nr));
         }
 
-        return  ls ;
+        return ls;
 
     }
 
-    public  static Map<Integer, Integer> listToMap(List<Integer> ls){
-        Map<Integer, Integer> map  = new HashMap<>();
+    public static List<Integer> randomListOnceDublicated(int nr) {
 
+        Random random = new Random();
+        List<Integer> ls = new ArrayList<>();
 
-        for(Integer el  : ls){
-            if(map.containsKey(el)){
-                int val =  map.get(el)+1;
-                map.put(el, val);
+        random.setSeed(System.currentTimeMillis());
+
+        for (int i = 0; i < nr; i++) {
+            int el = random.nextInt(nr);
+//            System.out.println(Collections.frequency(ls, el));
+            while (true) {
+                if (Collections.frequency(ls, el) < 2) {
+                    break;
+                }
+                el = random.nextInt(nr);
             }
-            else{
-                map.put(el, 1) ;
+
+            ls.add(el);
+        }
+
+        return ls;
+
+    }
+
+    public static Map<Integer, Integer> listToMap(List<Integer> ls) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+
+        for (Integer el : ls) {
+            if (map.containsKey(el)) {
+                int val = map.get(el) + 1;
+                map.put(el, val);
+            } else {
+                map.put(el, 1);
             }
 
         }
@@ -81,14 +104,21 @@ public class Exercise14 {
     }
 
     public static void main(String[] args) {
-        List<Integer> randomLs =  randomList(200);
+        List<Integer> randomLs = randomList(200);
+//
+//        System.out.println("randomLs: " + randomLs);
+        List<Integer> onceRepeatedLs = onceRepeated(randomLs);
+//        System.out.println("onceRepeatedLs: " + onceRepeatedLs);
+//
+//        List<Integer> mostFrequentLs = mostFrequently(randomLs, 25);
+//        System.out.println("mostFrequentLs: " + mostFrequentLs);
 
+        randomLs = randomListOnceDublicated(100);
         System.out.println("randomLs: " + randomLs);
-        List<Integer> onceRepeatedLs =  onceRepeated(randomLs);
+
+        onceRepeatedLs = onceRepeated(randomLs);
         System.out.println("onceRepeatedLs: " + onceRepeatedLs);
 
-        List<Integer> mostFrequentLs =  mostFrequently(randomLs, 25);
-        System.out.println("mostFrequentLs: " + mostFrequentLs);
 
     }
 }
