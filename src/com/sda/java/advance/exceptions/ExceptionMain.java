@@ -46,9 +46,8 @@ public class ExceptionMain {
             try{
                 int c =  a/b ;
                 System.out.println("c value is: " + c);
-            } catch (ArithmeticException e ){
+            } catch (Exception e) {
                 System.out.println("Division by 0 is impossible");
-
             }
 
             int d =  a*b ;
@@ -118,16 +117,16 @@ public class ExceptionMain {
     }
 
     public static void main(String[] args) {
-//        useExceptionHandling();
+        useExceptionHandling();
 //        useExceptionHandling2();
 
-        try {
-            exceptionThrowing();
-        } catch (Exception e) {
-            CustomException e1 = (CustomException) e;
-            System.out.println(e1.getMessage());
-            System.out.println(e1.getSolution());
-            System.out.println(e1);
-        }
+//        try {
+//            exceptionThrowing();
+//        } catch (Exception e) {
+//            CustomException e1 = (CustomException) e;
+//            System.out.println(e1.getMessage());
+//            System.out.println(e1.getSolution());
+//            System.out.println(e1);
+//        }
     }
 }
