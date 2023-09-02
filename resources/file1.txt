@@ -1,4 +1,6 @@
-Hello where are you?
-Hello, Hello...Hello, Hello Hello Hello...
-Klaus is here
-After all  the time
+name klaus
+surname kullolli
+address kombinat
+number 0691111111
+age 22
+email test@gmail.com
